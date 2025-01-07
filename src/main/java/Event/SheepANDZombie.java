@@ -9,6 +9,11 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Random;
 
 public class SheepANDZombie implements Listener {
     private final JavaPlugin plugin;
@@ -53,9 +58,28 @@ public class SheepANDZombie implements Listener {
         Entity damager = event.getDamager();
 
         // Проверяем, что отпиздили  зомби и отпиздил  игрок
-        if (damaged instanceof Zombie && damager instanceof Player) {
+        if (damaged instanceof Zombie || damager instanceof Player) {
             Zombie zombie = (Zombie) damaged;
             Player player = (Player) damager;
+        if (damaged instanceof Zombie | damager instanceof Player){
+            Random random = new Random();
+            int number_potion = random.nextInt(3);
+            switch (number_potion){
+                case 0:
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 3));
+                    player.sendMessage("§l§6Вы ударили зомби и получили эффект скорости!");
+                    break;
+                case 1:
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 3));
+                    player.sendMessage("§l§0Вы ударили зомби и получили эффект слепоты!");
+                    break;
+                case 2:
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 100, 3));
+                    player.sendMessage("§l§4Вы ударили зомби и получили эффект темноты (wtf?)!");
+                    break;
+            }
+
+        }
 
             // Получаем урон, нанесенный зомби
             double damage = event.getDamage();
@@ -69,6 +93,9 @@ public class SheepANDZombie implements Listener {
 
             // Отправляем сообщение игроку
             player.sendMessage("Было наненсено " + damage + " урона зомби. Осталось здоровья: " + remainingHealth);
+
+
+
         }
     }
 

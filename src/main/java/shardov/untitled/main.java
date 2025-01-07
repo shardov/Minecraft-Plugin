@@ -1,5 +1,6 @@
 package shardov.untitled;
 
+import Event.BlockBreak;
 import Event.JoinEvent;
 import Event.SheepANDZombie;
 import org.bukkit.Bukkit;
@@ -12,6 +13,7 @@ public final class main extends JavaPlugin {
 
         Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new SheepANDZombie(this), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new BlockBreak(), this);
 
     }
     }
